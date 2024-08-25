@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Generator</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Animate.css for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <!-- Certificate Generator Section -->
+    <div class="container mt-5 animate_animated animate_fadeInUp">
+        <h2 class="text-center mb-4">DJS NSS </h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6 mb-4">
+                <div class="card certificate-card">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Stem Cell Donation 2024 Certificate</b></h5>
+                        <form method="POST">
+                            <div class="form-group">
+                                <label for="name" class="sr-only">Enter your name:</label>
+                                <input type="text" id="name" name="name" class="form-control form-control-lg mb-3" placeholder="Enter your name" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg">Get your Certificate</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upcoming Events Section -->
+    <div class="container mt-5 animate_animated animate_fadeInUp">
+        <h2 class="text-center mb-4">Upcoming Events</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6 mb-4">
+                <div class="card event-card">
+                    <img src="static\css\UNION BUDGET.jpg" class="card-img-top" alt="Event 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Union Budget 2024</h5>
+                        <p class="card-text">Join us for an Informative session on Union Budget Implemented in 2024.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
