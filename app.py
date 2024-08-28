@@ -1,24 +1,31 @@
 from flask import Flask, render_template, request, send_file
 from PIL import Image, ImageDraw, ImageFont
-import csv
+from pymongo import MongoClient
 import os
 import re
 
 app = Flask(__name__)
 
-# Load the list of names from the CSV file
-def load_names(csv_path):
-    with open(csv_path, newline='', encoding='utf-8') as csvfile:
-        reader = csv.DictReader(csvfile)
-        names = [row['Name'] for row in reader]
-    return names
+# Set up MongoDB connection
+def get_mongo_client():
+    # Replace with your MongoDB connection string
+    mongo_uri = os.environ.get('MONGO_URI', 'mongodb+srv://hareshadmin:hareshkurade@cluster0.x70xv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+    client = MongoClient(mongo_uri)
+    return client
 
-# Check if the user's name exists in the CSV, case-insensitive and ignoring leading/trailing/multiple spaces
+def load_names_from_mongo():
+    client = get_mongo_client()
+    db = client['NSS']  # Replace with your database name
+    collection = db['StemCells']  # Replace with your collection name
+    names = collection.find({}, {'_id': 0, 'name': 1})
+    return [doc['name'] for doc in names]
+
+# Check if the user's name exists in the list from MongoDB
 def check_name_exists(name, names):
     # Normalize the input name: strip whitespace, replace multiple spaces with a single space, and convert to lowercase
     normalized_name = re.sub(r'\s+', ' ', name.strip()).lower()
 
-    # Normalize the names from the CSV in the same way
+    # Normalize the names from MongoDB in the same way
     normalized_names = [re.sub(r'\s+', ' ', n.strip()).lower() for n in names]
 
     # Check if the normalized name is in the list of normalized names
@@ -54,7 +61,6 @@ def generate_certificate(name, template_path, output_dir, font_path, font_size=4
 def index():
     if request.method == 'POST':
         user_name = request.form['name']
-        csv_path = "participants.csv"
         template_path = "certificate_template.png"
         output_dir = "certificates"
         font_path = "fonts/arial.ttf"
@@ -62,8 +68,8 @@ def index():
         # Create the certificates directory if it doesn't exist
         os.makedirs(output_dir, exist_ok=True)
         
-        # Load names from CSV
-        names = load_names(csv_path)
+        # Load names from MongoDB
+        names = load_names_from_mongo()
         
         # Check if the user's name exists
         if check_name_exists(user_name, names):
