@@ -9,7 +9,7 @@ app = Flask(__name__)
 # Set up MongoDB connection
 def get_mongo_client():
     # Replace with your MongoDB connection string
-    mongo_uri = os.environ.get('MONGO_URI', 'mongodb+srv://hareshadmin:hareshkurade@cluster0.x70xv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+    mongo_uri = os.environ.get('MONGO_URI', '')
     client = MongoClient(mongo_uri)
     return client
 
